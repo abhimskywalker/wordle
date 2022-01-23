@@ -1,11 +1,22 @@
 'use strict'
 
 let grid = document.getElementById('grid')
+let keyboard = document.getElementById('keyboard')
 
 let randomIndex = Math.floor(Math.random()*wordList.length)
 let secret = wordList[randomIndex]
-// let secret = 'horse'
 console.log(secret)
+
+let GREEN = '#538d4e';
+let YELLOW = '#b59f3a';
+let DARKGREY = '#3a3a3c';
+let LIGHTGREY = '#565758';
+
+let keyboardRows = [
+	'qwertyuiop'.split(''),
+	'asdfghjkl'.split(''),
+	['enter'].concat('zxcvbnm'.split('')).concat(['backspace'])
+]
 
 let attempts = []
 let currentAttempt = ''
@@ -13,11 +24,19 @@ let gameStatus = ''
 
 buildGrid()
 updateGrid()
+buildKeyboard()
 window.addEventListener('keydown', handleKeyDown)
 
 function handleKeyDown(e) {
+  if (e.ctrlKey || e.metaKey || e.altKey) {
+    return
+  }
+  handleKey(e.key)
+}
+
+function handleKey(key) {
 	if (gameStatus) return
-	let letter = e.key.toLowerCase()
+	let letter = key.toLowerCase()
 	console.log(letter)
 	if (letter === 'enter') {
 		if (currentAttempt.length < 5) {
@@ -39,9 +58,10 @@ function handleKeyDown(e) {
 			updateGameStatus('lost')
 		}
 		currentAttempt = ''
+		updateKeyboard()
 	} else if (letter === 'backspace') {
 		currentAttempt = currentAttempt.slice(0, currentAttempt.length - 1)
-	} else if (/[a-z]/.test(letter) && letter.length === 1) {
+	} else if (/^[a-z]$/.test(letter)) {
 		if (currentAttempt.length < 5) {
 			currentAttempt += letter
 		}
@@ -53,7 +73,27 @@ function updateGameStatus(status) {
 	gameStatus = status
 	let gameStatusDiv = document.getElementById('gameStatus')
 	gameStatusDiv.textContent = 'You ' + gameStatus
+	if (gameStatus === 'lost') {
+		gameStatusDiv.insertAdjacentText('afterend','Answer: ' + secret)
+	}
 }
+
+function buildKeyboard() {
+	for (let keyboardRow of keyboardRows) {
+		let row = document.createElement('div')
+		for (let key of keyboardRow) {
+			let button = document.createElement('button')
+			button.className = 'button'
+			button.textContent = key.toUpperCase()
+			button.style.backgroundColor = LIGHTGREY
+			button.onclick = (e) => handleKey(key)
+			row.appendChild(button)
+		}
+		keyboard.appendChild(row)
+	}
+}
+
+function updateKeyboard() {}
 
 function buildGrid() {
 	for (let i=0; i<6; i++){
@@ -81,25 +121,26 @@ function updateGrid() {
 function drawAttempt(row, attempt, isCurrent) {
 	if (isCurrent) {
 		for (let cell of row.children) {
-			cell.textContent = 'X'
-			// cell.innerHTML = '<div style="opacity: 0">X</div>'
-			cell.style.border = '2px solid #3a3a3c'
-			// cell.style.opacity = '0'
+			cell.textContent = ''
+			cell.style.border = '2px solid ' + DARKGREY
 		}
 	}
-	// let cell = row.firstChild
 	for (let i=0; i<5; i++) {
 		let cell = row.children[i]
 		cell.textContent = attempt[i]
-		if (!isCurrent) cell.style.backgroundColor = getBgColor(attempt[i], i)
-		else if (attempt[i]) cell.style.border = '2px solid #565758'
-		// cell = cell.nextSibling
+		if (!isCurrent) {
+			cell.style.backgroundColor = getBgColor(attempt[i], i)
+			cell.style.border = '2px solid ' + getBgColor(attempt[i], i)
+		}
+		else if (attempt[i]) {
+			cell.style.border = '2px solid ' + LIGHTGREY
+		}
 	}
 }
 
 function getBgColor(letter, index) {
-	if (secret.indexOf(letter) === -1) return '#3a3a3c';
-	else if (secret[index] === letter) return '#538d4e';
-	else return '#b59f3a';
+	if (secret.indexOf(letter) === -1) return DARKGREY;
+	else if (secret[index] === letter) return GREEN;
+	else return YELLOW;
 }
 

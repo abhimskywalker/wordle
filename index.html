@@ -1,7 +1,16 @@
-<h1>Wordle Gym</h1>
+<head>
+	<title>Wordle Gym</title>
+</head>
 
-<div id="grid" class="grid"></div>
-<h1 id="gameStatus"></h1>
+<div class="container">
+	<h1>Wordle Gym</h1>
+	<div id="grid" class="grid"></div>
+	<div>
+		<p id="gameStatus"></p>
+		<p id="answer"></p>
+	</div>
+	<div id="keyboard"></div>
+</div>
 
 <style type="text/css">
 	body, html {
@@ -11,28 +20,52 @@
 		text-align: center;
 		text-transform: uppercase;
 	}
+	body, html, .container {
+		height: 100vh;
+		width: 100%;
+	}
+	.container {
+		display: flex;
+		/*flex: 1 1 auto;*/
+		flex-direction: column;
+	}
 	h1 {
-		font-size: large;
+		font-size: x-large;
 	}
 	.grid {
-		display: flex;
+		flex: 0 1 auto;
 		flex-direction: column;
 		align-items: center;
 	}
 	.row {
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
 	}
 	.cell {
-		width: 32px;
-		height: 32px;
-		line-height: 30px;
+		min-width: 60px;
+		min-height: 60px;
+		line-height: 60px;
 		border: 2px solid #3a3a3c;
-		/*display: inline-block;*/
 		padding: 10px;
 		margin: 2.5px;
 		text-align: center;
-		font-size: x-large;
+		font-size: xx-large;
+		font-weight: 900;
+	}
+	#keyboard {
+		flex: none;
+	}
+	.button {
+		min-height: 30px;
+		min-width: 30px;
+		/*line-height: 30px;*/
+		font-weight: 600;
+		border-radius: 12px;
+		padding: 15px;
+		margin: 2px;
+		border: none;
+		color: white;
 	}
 </style>
 
