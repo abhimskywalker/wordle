@@ -1,4 +1,5 @@
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Wordle Gym</title>
 </head>
 
@@ -9,7 +10,10 @@
 		<p id="gameStatus"></p>
 		<p id="answer"></p>
 	</div>
-	<div id="keyboard"></div>
+	<div class="keyboardSpace">
+		<div></div>
+		<div id="keyboard"></div>
+	</div>
 </div>
 
 <style type="text/css">
@@ -28,6 +32,8 @@
 		display: flex;
 		/*flex: 1 1 auto;*/
 		flex-direction: column;
+		max-width: 500px;
+		margin: auto;
 	}
 	h1 {
 		font-size: x-large;
@@ -43,9 +49,9 @@
 		justify-content: center;
 	}
 	.cell {
-		min-width: 60px;
-		min-height: 60px;
-		line-height: 60px;
+		min-width: 32px;
+		min-height: 32px;
+		line-height: 32px;
 		border: 2px solid #3a3a3c;
 		padding: 10px;
 		margin: 2.5px;
@@ -53,21 +59,33 @@
 		font-size: xx-large;
 		font-weight: 900;
 	}
+	.keyboardSpace {
+		/*flex: 1 1 auto;*/
+		margin-top: auto;
+	}
 	#keyboard {
-		flex: 1 1 auto;
+		/*flex: 1 1 auto;*/
+		margin-top: auto;
+		user-select: none;
+	}
+	.keyboardRow {
+		display: flex;
+		margin: 0 auto 8px;
 	}
 	.button {
 		min-height: 30px;
-		max-height: 120px;
-		height: 25%;
-		min-width: 30px;
-		font-weight: 600;
+		height: 60px;
 		border-radius: 12px;
-		padding: 16px;
-		margin: 4px;
-		border: none;
+		padding: 0;
+		border: 0;
 		color: white;
 		cursor: pointer;
+		user-select: none;
+		flex: 1;
+		justify-content: center;
+		align-items: center;
+		margin-right: 6px;
+		font-size: x-small;
 	}
 </style>
 
