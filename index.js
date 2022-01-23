@@ -2,6 +2,7 @@
 
 let grid = document.getElementById('grid')
 let keyboard = document.getElementById('keyboard')
+let keyboardButtons = new Map()
 
 let randomIndex = Math.floor(Math.random()*wordList.length)
 let secret = wordList[randomIndex]
@@ -11,12 +12,6 @@ let GREEN = '#538d4e';
 let YELLOW = '#b59f3a';
 let DARKGREY = '#3a3a3c';
 let LIGHTGREY = '#565758';
-
-let keyboardRows = [
-	'qwertyuiop'.split(''),
-	'asdfghjkl'.split(''),
-	['enter'].concat('zxcvbnm'.split('')).concat(['backspace'])
-]
 
 let attempts = []
 let currentAttempt = ''
@@ -79,6 +74,11 @@ function updateGameStatus(status) {
 }
 
 function buildKeyboard() {
+	let keyboardRows = [
+		'qwertyuiop'.split(''),
+		'asdfghjkl'.split(''),
+		['enter'].concat('zxcvbnm'.split('')).concat(['backspace'])
+	]
 	for (let keyboardRow of keyboardRows) {
 		let row = document.createElement('div')
 		for (let key of keyboardRow) {
@@ -87,13 +87,30 @@ function buildKeyboard() {
 			button.textContent = key.toUpperCase()
 			button.style.backgroundColor = LIGHTGREY
 			button.onclick = (e) => handleKey(key)
+			if (key.length === 1) keyboardButtons.set(key, [button, LIGHTGREY])
 			row.appendChild(button)
 		}
 		keyboard.appendChild(row)
 	}
 }
 
-function updateKeyboard() {}
+function updateKeyColor(letter, color) {
+	let [keyButton, keyColor] = keyboardButtons.get(letter)
+	if (keyColor === GREEN || color === GREEN) {
+		keyButton.style.backgroundColor = GREEN
+	} else if (keyColor === YELLOW || color === YELLOW) {
+		keyButton.style.backgroundColor = YELLOW
+	}
+	else keyButton.style.backgroundColor = DARKGREY
+}
+
+function updateKeyboard() {
+	for (let attempt of attempts) {
+		for (let i=0; i<5; i++) {
+			updateKeyColor(attempt[i], getBgColor(attempt[i], i))
+		}
+	}
+}
 
 function buildGrid() {
 	for (let i=0; i<6; i++){
@@ -131,6 +148,7 @@ function drawAttempt(row, attempt, isCurrent) {
 		if (!isCurrent) {
 			cell.style.backgroundColor = getBgColor(attempt[i], i)
 			cell.style.border = '2px solid ' + getBgColor(attempt[i], i)
+
 		}
 		else if (attempt[i]) {
 			cell.style.border = '2px solid ' + LIGHTGREY
