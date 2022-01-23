@@ -1,0 +1,40 @@
+<h1>Wordle Gym</h1>
+
+<div id="grid" class="grid"></div>
+<h1 id="gameStatus"></h1>
+
+<style type="text/css">
+	body, html {
+		background: #111;
+		color: white;
+		font-family: sans-serif;
+		text-align: center;
+		text-transform: uppercase;
+	}
+	h1 {
+		font-size: large;
+	}
+	.grid {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.row {
+		display: flex;
+		flex-direction: row;
+	}
+	.cell {
+		width: 32px;
+		height: 32px;
+		line-height: 30px;
+		border: 2px solid #3a3a3c;
+		/*display: inline-block;*/
+		padding: 10px;
+		margin: 2.5px;
+		text-align: center;
+		font-size: x-large;
+	}
+</style>
+
+<script src="wordList.js"></script>
+<script src="index.js"></script>
