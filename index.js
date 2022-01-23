@@ -5,8 +5,8 @@ let keyboard = document.getElementById('keyboard')
 let keyboardButtons = new Map()
 
 let randomIndex = Math.floor(Math.random()*wordList.length)
-let secret = wordList[randomIndex]
-console.log(secret)
+let secret
+// console.log(secret)
 
 let GREEN = '#538d4e';
 let YELLOW = '#b59f3a';
@@ -16,11 +16,67 @@ let LIGHTGREY = '#565758';
 let attempts = []
 let currentAttempt = ''
 let gameStatus = ''
+let winCount = 0
+let lossCount = 0
+let winAttempts = [
+	[1,0],
+	[2,0],
+	[3,0],
+	[4,0],
+	[5,0],
+	[6,0]
+]
 
+loadGame()
 buildGrid()
 updateGrid()
 buildKeyboard()
+updateKeyboard()
 window.addEventListener('keydown', handleKeyDown)
+
+function loadGame() { 
+	let data
+	try {
+		data = JSON.parse(localStorage.getItem('data'))
+	} catch {}
+	if (data != null) {
+		console.log(data)
+		if (data.secret && !data.gameStatus) {
+			secret = data.secret
+			attempts = data.attempts
+			console.log('loaded: ',secret)
+		} else if (data.gameStatus) {
+			secret = wordList[randomIndex]
+			console.log('new: ', secret)
+		}
+		winCount = data.winCount
+		lossCount = data.lossCount
+		winAttempts = data.winAttempts
+	} else {
+		secret = wordList[randomIndex]
+		console.log('new: ', secret)
+	}
+	let winCountText = document.getElementById('winCount')
+	winCountText.textContent = winCount + ' wins'
+	let lossCountText = document.getElementById('lossCount')
+	lossCountText.textContent = lossCount + ' losses'
+}
+
+function savegame() {
+	let data = JSON.stringify({
+		winCount,
+		lossCount,
+		secret,
+		attempts,
+		gameStatus,
+		winAttempts
+	})
+	try {
+		localStorage.setItem('data', data)
+	} catch {
+		console.log('error')
+	}
+}
 
 function handleKeyDown(e) {
   if (e.ctrlKey || e.metaKey || e.altKey) {
@@ -54,6 +110,7 @@ function handleKey(key) {
 		}
 		currentAttempt = ''
 		updateKeyboard()
+		savegame()
 	} else if (letter === 'backspace') {
 		currentAttempt = currentAttempt.slice(0, currentAttempt.length - 1)
 	} else if (/^[a-z]$/.test(letter)) {
@@ -67,10 +124,19 @@ function handleKey(key) {
 function updateGameStatus(status) {
 	gameStatus = status
 	let gameStatusDiv = document.getElementById('gameStatus')
-	gameStatusDiv.textContent = 'You ' + gameStatus
 	if (gameStatus === 'lost') {
-		gameStatusDiv.insertAdjacentText('afterend','Answer: ' + secret)
+		gameStatusDiv.textContent = 'Oops... You lost! Answer was: ' + secret
+		lossCount++
+	} else if (gameStatus === 'won') {
+		gameStatusDiv.textContent = 'Yay! You Won!'
+		winCount++
+		winAttempts[attempts.length -1][1] += 1
 	}
+	let newGameButton = document.createElement('button')
+	gameStatusDiv.insertAdjacentElement('afterend',newGameButton)
+	newGameButton.textContent = 'Start New Game'
+	newGameButton.className = 'newGameButton'
+	newGameButton.onclick = () => window.location.reload()
 }
 
 function buildKeyboard() {

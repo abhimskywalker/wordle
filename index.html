@@ -4,7 +4,13 @@
 </head>
 
 <div class="container">
-	<h1>Wordle Gym</h1>
+	<div class="topRow">
+		<h1>Wordle Gym</h1>
+		<div class="scoreRow">
+			<p id="winCount" style="color: #538d4e;"></p>
+			<p id='lossCount'></p>
+		</div>
+	</div>
 	<div id="grid" class="grid"></div>
 	<div>
 		<p id="gameStatus"></p>
@@ -37,6 +43,19 @@
 	}
 	h1 {
 		font-size: x-large;
+	}
+	.topRow {
+		border-bottom: 2px solid #3a3a3c;
+		margin-bottom: 10px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.scoreRow {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		width: 100%;
 	}
 	.grid {
 		flex: 0 1 auto;
@@ -90,6 +109,15 @@
 		margin-right: 6px;
 		font-size: small;
 		font-weight: 600;
+	}
+	.newGameButton {
+		padding: 16px;
+		border-radius: 32px;
+		color: white;
+		background-color: #538d4e;
+		font-size: 24px;
+		font-weight: 600;
+		text-transform: uppercase;
 	}
 </style>
 
