@@ -89,8 +89,16 @@ function buildKeyboard() {
 			button.style.backgroundColor = LIGHTGREY
 			button.onclick = (e) => handleKey(key)
 			if (key.length === 1) keyboardButtons.set(key, [button, LIGHTGREY])
-			else if (key === 'enter') button.style.flex = 1.5
-			else if (key === 'backspace') button.style.flex = 2.5
+			else if (key === 'enter') {
+				button.style.flex = 1.5
+				button.style.fontSize = 10
+				button.style.fontWeight = 300
+			}
+			else if (key === 'backspace') {
+				button.style.flex = 2.5
+				button.style.fontSize = 10
+				button.style.fontWeight = 300
+			}
 			row.appendChild(button)
 		}
 		keyboard.appendChild(row)
