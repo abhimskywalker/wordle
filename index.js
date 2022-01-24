@@ -40,21 +40,21 @@ function loadGame() {
 		data = JSON.parse(localStorage.getItem('data'))
 	} catch {}
 	if (data != null) {
-		console.log(data)
+		// console.log(data)
 		if (data.secret && !data.gameStatus) {
 			secret = data.secret
 			attempts = data.attempts
-			console.log('loaded: ',secret)
+			// console.log('loaded: ',secret)
 		} else if (data.gameStatus) {
 			secret = wordList[randomIndex]
-			console.log('new: ', secret)
+			// console.log('new: ', secret)
 		}
 		winCount = data.winCount
 		lossCount = data.lossCount
 		winAttempts = data.winAttempts
 	} else {
 		secret = wordList[randomIndex]
-		console.log('new: ', secret)
+		// console.log('new: ', secret)
 	}
 	let winCountText = document.getElementById('winCount')
 	winCountText.textContent = winCount + ' wins'
@@ -88,7 +88,7 @@ function handleKeyDown(e) {
 function handleKey(key) {
 	if (gameStatus) return
 	let letter = key.toLowerCase()
-	console.log(letter)
+	// console.log(letter)
 	if (letter === 'enter') {
 		if (currentAttempt.length < 5) {
 			return
@@ -97,8 +97,8 @@ function handleKey(key) {
 			alert('Already tried')
 			return
 		}
-		if (!wordList.includes(currentAttempt)) {
-			alert('Invalid word')
+		if (!wordList.includes(currentAttempt) && !wordList2.includes(currentAttempt)) {
+			alert('Word not in list')
 			return
 		}
 		attempts.push(currentAttempt)
