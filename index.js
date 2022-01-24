@@ -57,9 +57,19 @@ function loadGame() {
 		// console.log('new: ', secret)
 	}
 	let winCountText = document.getElementById('winCount')
-	winCountText.textContent = winCount + ' wins'
-	let lossCountText = document.getElementById('lossCount')
-	lossCountText.textContent = lossCount + ' losses'
+	winCountText.textContent = winCount + ' wins \r\n of ' + (winCount+lossCount) + ' tries'
+	buildWinGraph()
+	// let lossCountText = document.getElementById('lossCount')
+	// lossCountText.textContent = lossCount + ' losses'
+}
+
+function buildWinGraph() {
+	let maxWins = Math.max(...winAttempts.map((x) => x[1])) || 1
+	for (let winAttempt of winAttempts) {
+		let winBar = document.getElementById('bar' + winAttempt[0])
+		winBar.style.height = Math.round(winAttempt[1]/maxWins * 100) + '%'
+		if (winAttempt[1]) winBar.textContent = winAttempt[1]
+	}
 }
 
 function savegame() {

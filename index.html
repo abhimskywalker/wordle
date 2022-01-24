@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<title>Wordle Gym</title>
 	<style type="text/css">
 		body, html {
@@ -40,6 +40,7 @@
 			flex-direction: row;
 			justify-content: space-between;
 			width: 100%;
+			align-items: baseline;
 		}
 		.grid {
 			flex: 0 1 auto;
@@ -103,6 +104,26 @@
 			font-size: 24px;
 			font-weight: 600;
 			text-transform: uppercase;
+			border: 0;
+		}
+		.winGraph {
+			height: 50px;
+		    display: flex;
+		    flex-direction: row;
+		    align-items: end;
+		    /*padding-bottom: 5px;*/
+		}
+		.graphBar {
+			width: 20px;
+		    min-height: 1px;
+		    display: flex;
+		    align-items: baseline;
+		    justify-content: center;
+		    background-color: #538d4e;
+		    margin-right: 5px;
+		}
+		.winTries {
+			background-color: #111;
 		}
 	</style>
 </head>
@@ -111,8 +132,29 @@
 	<div class="topRow">
 		<h1>Wordle Gym</h1>
 		<div class="scoreRow">
-			<p id="winCount" style="color: #538d4e;"></p>
-			<p id='lossCount'></p>
+			<p id="winCount" style="white-space: pre; margin: 2px 0px;"></p>
+			<div style="display: flex; flex-direction: column;">
+				<div class="winGraph">
+					<div id="bar1" class="graphBar">1</div>
+					<div id="bar2" class="graphBar">2</div>
+					<div id="bar3" class="graphBar">3</div>
+					<div id="bar4" class="graphBar">4</div>
+					<div id="bar5" class="graphBar">5</div>
+					<div id="bar6" class="graphBar">6</div>
+				</div>
+				<div class="winGraph" style="flex: 1;">
+					<div class="graphBar winTries">1</div>
+					<div class="graphBar winTries">2</div>
+					<div class="graphBar winTries">3</div>
+					<div class="graphBar winTries">4</div>
+					<div class="graphBar winTries">5</div>
+					<div class="graphBar winTries">6</div>
+				</div>
+				<div>
+					<p style="text-transform: capitalize; margin: 5px 0px; font-size: 12px;">Guess Distribution</p>
+				</div>
+			</div>
+			<!-- <p id='lossCount'></p> -->
 		</div>
 	</div>
 	<div id="grid" class="grid"></div>
