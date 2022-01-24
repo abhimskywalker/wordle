@@ -73,6 +73,7 @@
 			/*margin: auto 10 150 10;*/
 			user-select: none;
 			width: 100%;
+			touch-action: manipulation;
 		}
 		.keyboardRow {
 			display: flex;
@@ -133,14 +134,14 @@
 		<h1>Wordle Gym</h1>
 		<div class="scoreRow">
 			<p id="winCount" style="white-space: pre; margin: 2px 0px;"></p>
-			<div style="display: flex; flex-direction: column;">
+			<!-- <div style="display: flex; flex-direction: column;">
 				<div class="winGraph">
-					<div id="bar1" class="graphBar">1</div>
-					<div id="bar2" class="graphBar">2</div>
-					<div id="bar3" class="graphBar">3</div>
-					<div id="bar4" class="graphBar">4</div>
-					<div id="bar5" class="graphBar">5</div>
-					<div id="bar6" class="graphBar">6</div>
+					<div id="bar1" class="graphBar"></div>
+					<div id="bar2" class="graphBar"></div>
+					<div id="bar3" class="graphBar"></div>
+					<div id="bar4" class="graphBar"></div>
+					<div id="bar5" class="graphBar"></div>
+					<div id="bar6" class="graphBar"></div>
 				</div>
 				<div class="winGraph" style="flex: 1;">
 					<div class="graphBar winTries">1</div>
@@ -153,8 +154,8 @@
 				<div>
 					<p style="text-transform: capitalize; margin: 5px 0px; font-size: 12px;">Guess Distribution</p>
 				</div>
-			</div>
-			<!-- <p id='lossCount'></p> -->
+			</div> -->
+			<p id='lossCount'></p>
 		</div>
 	</div>
 	<div id="grid" class="grid"></div>
