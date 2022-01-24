@@ -58,17 +58,35 @@ function loadGame() {
 	}
 	let winCountText = document.getElementById('winCount')
 	winCountText.textContent = winCount + ' wins' //+ ' of ' + (winCount+lossCount) + ' tries'
-	// buildWinGraph()
+	buildWinGraph()
 	let lossCountText = document.getElementById('lossCount')
 	lossCountText.textContent = lossCount + ' losses'
+	
+	let winGuessCta = document.getElementById('winGuessCta')
+	winGuessCta.onclick = toggleWinGuessStats
+}
+
+function toggleWinGuessStats() {
+	let winGuessCta = document.getElementById('winGuessCta')
+	let winGraph = document.getElementById('winGraph')
+	if (winGraph.style.display === 'none' || !winGraph.style.display) {
+		winGraph.style.display = 'flex'
+		winGuessCta.textContent = 'Hide Guess Distribution of Wins'
+	} else {
+		winGraph.style.display = 'none'
+		winGuessCta.textContent = 'Show Guess Distribution of Wins'
+	}
 }
 
 function buildWinGraph() {
 	let maxWins = Math.max(...winAttempts.map((x) => x[1])) || 1
 	for (let winAttempt of winAttempts) {
 		let winBar = document.getElementById('bar' + winAttempt[0])
-		winBar.style.height = Math.round(winAttempt[1]/maxWins * 100) + '%'
-		if (winAttempt[1]) winBar.textContent = winAttempt[1]
+		winBar.style.width = Math.round(winAttempt[1]/maxWins * 100) + '%'
+		if (winAttempt[1]) {
+			winBar.textContent = winAttempt[1]
+			winBar.style.paddingRight = '5px'
+		}
 	}
 }
 
@@ -134,6 +152,7 @@ function handleKey(key) {
 function updateGameStatus(status) {
 	gameStatus = status
 	let gameStatusDiv = document.getElementById('gameStatus')
+	gameStatusDiv.parentNode.style.display = 'inline'
 	if (gameStatus === 'lost') {
 		gameStatusDiv.textContent = 'Oops... You lost! Answer was: ' + secret
 		lossCount++

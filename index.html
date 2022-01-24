@@ -11,6 +11,7 @@
 			font-family: sans-serif;
 			text-align: center;
 			text-transform: uppercase;
+			touch-action: manipulation;
 		}
 		body, html, .container {
 			height: 100vh;
@@ -107,24 +108,46 @@
 			text-transform: uppercase;
 			border: 0;
 		}
-		.winGraph {
-			height: 50px;
-		    display: flex;
-		    flex-direction: row;
-		    align-items: end;
-		    /*padding-bottom: 5px;*/
+		#winGraph {
+		    display: none;
+		    flex-direction: column;
+		    align-items: stretch;
+		    padding-bottom: 5px;
+		    min-width: 300px;
+		    width: 75%;
+		    font-size: 16px;
+		    text-transform: none;
+		}
+		.graphRow {
+			display: flex;
+			flex-direction: row;
+			margin-bottom: 5px;
+		}
+		.rowLabel {
+			width: 20px;
 		}
 		.graphBar {
-			width: 20px;
-		    min-height: 1px;
 		    display: flex;
-		    align-items: baseline;
-		    justify-content: center;
+		    width: 100%;
+		    align-items: center;
+		    justify-content: flex-end;
 		    background-color: #538d4e;
 		    margin-right: 5px;
 		}
-		.winTries {
+		.guesses {
 			background-color: #111;
+		}
+		#winGuessCta {
+			font-size: 12px;
+			border-radius: 12px;
+			margin: 2px 0px; 
+			text-transform: none;
+			padding: 5px;
+			border: 0;
+			color: #538d4e;
+			cursor: pointer;
+			user-select: none;
+			background-color: #3a3a3c;
 		}
 	</style>
 </head>
@@ -133,33 +156,40 @@
 	<div class="topRow">
 		<h1>Wordle Gym</h1>
 		<div class="scoreRow">
-			<p id="winCount" style="white-space: pre; margin: 2px 0px;"></p>
-			<!-- <div style="display: flex; flex-direction: column;">
-				<div class="winGraph">
-					<div id="bar1" class="graphBar"></div>
-					<div id="bar2" class="graphBar"></div>
-					<div id="bar3" class="graphBar"></div>
-					<div id="bar4" class="graphBar"></div>
-					<div id="bar5" class="graphBar"></div>
-					<div id="bar6" class="graphBar"></div>
-				</div>
-				<div class="winGraph" style="flex: 1;">
-					<div class="graphBar winTries">1</div>
-					<div class="graphBar winTries">2</div>
-					<div class="graphBar winTries">3</div>
-					<div class="graphBar winTries">4</div>
-					<div class="graphBar winTries">5</div>
-					<div class="graphBar winTries">6</div>
-				</div>
-				<div>
-					<p style="text-transform: capitalize; margin: 5px 0px; font-size: 12px;">Guess Distribution</p>
-				</div>
-			</div> -->
+			<p id="winCount" style="white-space: pre;"></p>
+			<button id="winGuessCta">Show Guess Distribution of Wins</button>
 			<p id='lossCount'></p>
+		</div>
+		<div id="winGraph">
+			<p>Guess Distribution for Wins</p>
+			<div class="graphRow">
+				<div class="rowLabel">1</div>
+				<div id="bar1" class="graphBar"></div>
+			</div>
+			<div class="graphRow">
+				<div class="rowLabel">2</div>
+				<div id="bar2" class="graphBar"></div>
+			</div>
+			<div class="graphRow">
+				<div class="rowLabel">3</div>
+				<div id="bar3" class="graphBar"></div>
+			</div>
+			<div class="graphRow">
+				<div class="rowLabel">4</div>
+				<div id="bar4" class="graphBar"></div>
+			</div>
+			<div class="graphRow">
+				<div class="rowLabel">5</div>
+				<div id="bar5" class="graphBar"></div>
+			</div>
+			<div class="graphRow">
+				<div class="rowLabel">6</div>
+				<div id="bar6" class="graphBar"></div>
+			</div>
 		</div>
 	</div>
 	<div id="grid" class="grid"></div>
-	<div>
+	<div id="gameStatusRow" style="display: none;">
 		<p id="gameStatus"></p>
 		<p id="answer"></p>
 	</div>
