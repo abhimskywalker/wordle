@@ -1,6 +1,107 @@
+<!DOCTYPE html>
+<html>
 <head>
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Wordle Gym</title>
+	<style type="text/css">
+		body, html {
+			background: #111;
+			color: white;
+			font-family: sans-serif;
+			text-align: center;
+			text-transform: uppercase;
+		}
+		body, html, .container {
+			height: 100vh;
+			width: 100%;
+		}
+		.container {
+			display: flex;
+			/*flex: 1 1 auto;*/
+			flex-direction: column;
+			max-width: 500px;
+			margin: auto;
+		}
+		h1 {
+			font-size: x-large;
+		}
+		.topRow {
+			border-bottom: 2px solid #3a3a3c;
+			margin-bottom: 10px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.scoreRow {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			width: 100%;
+		}
+		.grid {
+			flex: 0 1 auto;
+			flex-direction: column;
+			align-items: center;
+		}
+		.row {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+		}
+		.cell {
+			min-width: 32px;
+			min-height: 32px;
+			line-height: 32px;
+			border: 2px solid #3a3a3c;
+			padding: 10px;
+			margin: 2.5px;
+			text-align: center;
+			font-size: xx-large;
+			font-weight: 900;
+		}
+		.keyboardSpace {
+			/*flex: 1 1 auto;*/
+			margin-top: auto;
+		}
+		#keyboard {
+			flex: 1 1 auto;
+			/*margin-bottom: 20px;*/
+			margin: auto 10 150 10;
+			user-select: none;
+			width: 100%;
+		}
+		.keyboardRow {
+			display: flex;
+			margin: 0 auto 8px;
+			width: 100%;
+		}
+		.button {
+			min-height: 30px;
+			height: 60px;
+			border-radius: 12px;
+			padding: 0;
+			border: 0;
+			color: white;
+			cursor: pointer;
+			user-select: none;
+			flex: 1;
+			justify-content: center;
+			align-items: center;
+			margin-right: 6px;
+			font-size: small;
+			font-weight: 600;
+		}
+		.newGameButton {
+			padding: 16px;
+			border-radius: 32px;
+			color: white;
+			background-color: #538d4e;
+			font-size: 24px;
+			font-weight: 600;
+			text-transform: uppercase;
+		}
+	</style>
 </head>
 
 <div class="container">
@@ -22,104 +123,7 @@
 	</div>
 </div>
 
-<style type="text/css">
-	body, html {
-		background: #111;
-		color: white;
-		font-family: sans-serif;
-		text-align: center;
-		text-transform: uppercase;
-	}
-	body, html, .container {
-		height: 100vh;
-		width: 100%;
-	}
-	.container {
-		display: flex;
-		/*flex: 1 1 auto;*/
-		flex-direction: column;
-		max-width: 500px;
-		margin: auto;
-	}
-	h1 {
-		font-size: x-large;
-	}
-	.topRow {
-		border-bottom: 2px solid #3a3a3c;
-		margin-bottom: 10px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.scoreRow {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		width: 100%;
-	}
-	.grid {
-		flex: 0 1 auto;
-		flex-direction: column;
-		align-items: center;
-	}
-	.row {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-	}
-	.cell {
-		min-width: 32px;
-		min-height: 32px;
-		line-height: 32px;
-		border: 2px solid #3a3a3c;
-		padding: 10px;
-		margin: 2.5px;
-		text-align: center;
-		font-size: xx-large;
-		font-weight: 900;
-	}
-	.keyboardSpace {
-		/*flex: 1 1 auto;*/
-		margin-top: auto;
-	}
-	#keyboard {
-		flex: 1 1 auto;
-		/*margin-bottom: 20px;*/
-		margin: auto 10 150 10;
-		user-select: none;
-		width: 100%;
-	}
-	.keyboardRow {
-		display: flex;
-		margin: 0 auto 8px;
-		width: 100%;
-	}
-	.button {
-		min-height: 30px;
-		height: 60px;
-		border-radius: 12px;
-		padding: 0;
-		border: 0;
-		color: white;
-		cursor: pointer;
-		user-select: none;
-		flex: 1;
-		justify-content: center;
-		align-items: center;
-		margin-right: 6px;
-		font-size: small;
-		font-weight: 600;
-	}
-	.newGameButton {
-		padding: 16px;
-		border-radius: 32px;
-		color: white;
-		background-color: #538d4e;
-		font-size: 24px;
-		font-weight: 600;
-		text-transform: uppercase;
-	}
-</style>
-
 <script src="wordList.js"></script>
 <script src="index.js"></script>
+
+</html>
